@@ -10,65 +10,55 @@
 > npm adduser --registry=https://registry.npmjs.org/
 
 ##### 1. 发布到npm官网
-
-1.查询镜像源
-> nrm ls
-```
- npm -------- https://registry.npmjs.org/
- yarn ------- https://registry.yarnpkg.com/
- cnpm ------- http://r.cnpmjs.org/
- taobao ----- https://registry.npm.taobao.org/
- nj --------- https://registry.nodejitsu.com/
- npmMirror -- https://skimdb.npmjs.com/registry/
- edunpm ----- http://registry.enpmjs.org/
-
 ``` 
+    1. nrm ls  // 查询镜像源  
+                npm -------- https://registry.npmjs.org/
+                yarn ------- https://registry.yarnpkg.com/
+                cnpm ------- http://r.cnpmjs.org/
+                taobao ----- https://registry.npm.taobao.org/
+                nj --------- https://registry.nodejitsu.com/
+                npmMirror -- https://skimdb.npmjs.com/registry/
+                edunpm ----- http://registry.enpmjs.org/ 
+     
+     2.  nrm use npm   // 切换官网镜像源
+     
+     
+     3. npm set scope="xx"   // 设置scope， scope是npm的组织没有就不设置
+     
+        
+     4. npm login    // 登录npm服务 - 输入用户名、密码、邮箱
+        说明： 显示 Logged in as xx to scope @xxx on https://registry.npmjs.org/. 表示登录成功
+    
+     
+     5. npm publish   // 发布包到npm官网
 
-2. 切换官网镜像源
-> nrm use npm
-
-3. 设置scope， scope是npm的组织没有就不设置
-> npm set scope="xx"
-   
-4.登录npm服务 - 输入用户名、密码、邮箱
-> npm login     
-   
-显示 Logged in as xx to scope @xxx on https://registry.npmjs.org/. 表示登录成功
-
-5. 发布包到npm官网
-> npm publish
-
-
+```
 
 ##### 2. 发布到npm到私服
-
-1.查询镜像源
-> nrm ls
-```
- npm -------- https://registry.npmjs.org/
- yarn ------- https://registry.yarnpkg.com/
- cnpm ------- http://r.cnpmjs.org/
- taobao ----- https://registry.npm.taobao.org/
- nj --------- https://registry.nodejitsu.com/
- npmMirror -- https://skimdb.npmjs.com/registry/
- edunpm ----- http://registry.enpmjs.org/
- lzborg ----- http://registry.lzborg.org
-
 ``` 
+    1. nrm ls  // 查询镜像源
+            npm -------- https://registry.npmjs.org/
+            yarn ------- https://registry.yarnpkg.com/
+            cnpm ------- http://r.cnpmjs.org/
+            taobao ----- https://registry.npm.taobao.org/
+            nj --------- https://registry.nodejitsu.com/
+            npmMirror -- https://skimdb.npmjs.com/registry/
+            edunpm ----- http://registry.enpmjs.org/
+            lzborg ----- http://registry.lzborg.org
+    
+    2. nrm use lzborg  // 切换私服镜像源
+    
+    
+    3. npm set scope="lzborg"   // 设置scope（一般是企业名称）， scope是npm的组织没有就不设置
+    
+       
+    4.npm login   // 登录私服npm服务 - 输入用户名、密码、邮箱
+      说明：显示 Logged in as xx to scope @xxx on http://registry.lzborg.org/. 表示登录成功
+    
+    
+    5. npm publish  // 发布包到npm的私服
 
-2. 切换私服镜像源
-> nrm use lzborg
-
-3. 设置scope（一般是企业名称）， scope是npm的组织没有就不设置
-> npm set scope="lzborg"
-   
-4.登录私服npm服务 - 输入用户名、密码、邮箱
-> npm login     
-   
-显示 Logged in as xx to scope @xxx on http://registry.lzborg.org/. 表示登录成功
-
-5. 发布包到npm的私服
-> npm publish
+```
 
 
 #### 二、命令合集
