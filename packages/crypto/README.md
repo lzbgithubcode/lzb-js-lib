@@ -6,7 +6,7 @@
 ##### 二. 插件安装
 ```
    // 安装
-   npm install @lzblib/crypto
+   npm install lzb-crypto
 ```
 
 
