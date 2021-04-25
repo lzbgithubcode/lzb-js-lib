@@ -2,7 +2,7 @@
   "name": "@lzblib/crypto",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "crypto.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

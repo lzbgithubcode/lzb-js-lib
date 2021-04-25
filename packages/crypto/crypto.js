@@ -9,8 +9,5 @@ function createInstance(config){
 
 const crypto = createInstance(defaultConf);
 
-
 module.exports = crypto;
 module.exports.default = crypto;
-
-

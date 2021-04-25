@@ -1,17 +1,18 @@
 'use strict';
 const CryptoJS = require("crypto-js");
+const typeChecker = require("./typeChecker");
 
 function CryPto(config) {
     this.defaults = config;
+    this.CryptoJS = CryptoJS;   // 扩展对象
 }
 
 // AES默认配置
 const defaultConf  = {
     mode: CryptoJS.mode.CBC,
-    padding:CryptoJS.pad.ZeroPadding,
+    padding:CryptoJS.pad.Pkcs7,
     iv: null,
 };
-
 
 /**
  *  md5-加密
@@ -21,7 +22,7 @@ CryPto.prototype.md5Str = function(str){
       return  resultStr;
 };
 /**
- * base64-加密
+ * base64-加密  就是先将字符串转换为utf8字符数组，再转换为base64数据
  */
 CryPto.prototype.base64EncStr = function(str){
     const wordArray = CryptoJS.enc.Utf8.parse(str);
@@ -54,16 +55,23 @@ CryPto.prototype.AESEnc = function(data, key = this.defaults.baseCryptoCode, con
     if(!data || data.length == 0){
         return data;
     }
-    data = JSON.stringify(data);
+    if(typeChecker.isObject(data)){
+        data = JSON.stringify(data);
+    }
     const encStr = CryptoJS.enc.Utf8.parse(data);
 
-    const keyHex = this.getKey(key);
+    const keyHex = this.__getKey(key);
 
     Object.assign(defaultConf, config);
-    defaultConf.iv = this.getKeyIV(key);
+    defaultConf.iv = this.__getKeyIV(key);
 
     const cipherParams = CryptoJS.AES.encrypt(encStr,keyHex,defaultConf);
-    return  cipherParams.toString();
+    const aesStr =   cipherParams.toString();
+
+    // 在进行base64加码
+    const result =  this.base64EncStr(aesStr);
+
+    return  result;
 
 };
 
@@ -78,16 +86,21 @@ CryPto.prototype.DESEnc = function(data, key = this.defaults.baseCryptoCode, con
     if(!data || data.length == 0){
         return data;
     }
-     data = CryptoJS.enc.Base64.parse(data);
+    // 先通过base64解码
+    data = this.base64DecStr(data);
 
-    const keyHex = this.getKey(key);
+    const keyHex = this.__getKey(key);
     Object.assign(defaultConf, config);
-    defaultConf.iv = this.getKeyIV(key);
+    defaultConf.iv = this.__getKeyIV(key);
 
     let decrypted = CryptoJS.AES.decrypt(data,keyHex, defaultConf);
+
     decrypted =  CryptoJS.enc.Utf8.stringify(decrypted);
+
     try {
-        decrypted = JSON.parse(decrypted);
+        if(decrypted && decrypted.length > 0){
+            decrypted = JSON.parse(decrypted);
+        }
     } catch (e) {
          console.warn(e);
     }
@@ -95,18 +108,16 @@ CryPto.prototype.DESEnc = function(data, key = this.defaults.baseCryptoCode, con
 
 };
 
-
-
 /**
  * 获取秘钥
  */
-CryPto.prototype.getKey = function(key){
+CryPto.prototype.__getKey = function(key){
     return CryptoJS.enc.Utf8.parse(key);
 };
 /**
  * 获取秘钥偏移量
  */
-CryPto.prototype.getKeyIV = function(key){
+CryPto.prototype.__getKeyIV = function(key){
     return CryptoJS.enc.Utf8.parse(key);
 };
 
