@@ -23,14 +23,16 @@
      2.  nrm use npm   // 切换官网镜像源
      
      
-     3. npm set scope="xx"   // 设置scope， scope是npm的组织没有就不设置
+     3. npm set scope="xx"   // 设置scope， scope是npm的组织没有就不设置  (注意：如果付费组织就只能提交到共有参数，此步骤略过)
      
         
      4. npm login    // 登录npm服务 - 输入用户名、密码、邮箱
         说明： 显示 Logged in as xx to scope @xxx on https://registry.npmjs.org/. 表示登录成功
     
      
-     5. npm publish   // 发布包到npm官网
+     5. npm publish   // 发布包到npm官网 (注意：如果没有组织就只能提交到共有参数)
+
+      
 
 ```
 
@@ -56,7 +58,7 @@
       说明：显示 Logged in as xx to scope @xxx on http://registry.lzborg.org/. 表示登录成功
     
     
-    5. npm publish  // 发布包到npm的私服
+    5. npm publish  // 发布包到npm的私服  npm publish --access=public
 
 ```
 
