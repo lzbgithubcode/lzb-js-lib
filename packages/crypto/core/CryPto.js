@@ -15,12 +15,45 @@ const defaultConf  = {
 };
 
 /**
- *  md5-加密
+ *  hash 算法 - md5-加密
  */
 CryPto.prototype.md5Str = function(str){
       const resultStr =  CryptoJS.MD5(str).toString();
       return  resultStr;
 };
+/**
+ *  hash 算法 - h-mac5-加密
+ */
+CryPto.prototype.HmacMD5Str = function(str){
+    const resultStr =  CryptoJS.HmacMD5(str).toString();
+    return  resultStr;
+};
+
+/**
+ *  hash 算法 sha1-加密
+ */
+CryPto.prototype.sha1Str = function(str){
+    const resultStr =  CryptoJS.SHA1(str).toString();
+    return  resultStr;
+};
+
+/**
+ *  hash 算法 sha256-加密
+ */
+CryPto.prototype.sh256Str = function(str){
+    const resultStr =  CryptoJS.SHA256(str).toString();
+    return  resultStr;
+};
+
+/**
+ *  hash 算法 sha512-加密
+ */
+CryPto.prototype.sh512Str = function(str){
+    const resultStr =  CryptoJS.SHA512(str).toString();
+    return  resultStr;
+};
+
+
 /**
  * base64-加密  就是先将字符串转换为utf8字符数组，再转换为base64数据
  */
@@ -45,7 +78,7 @@ CryPto.prototype.base64DecStr = function(str){
  *  key  秘钥
  *  config 配置
  *  {
- *     mode: CryptoJS.mode.CBC,
+ *      mode: CryptoJS.mode.CBC,
         padding:CryptoJS.pad.ZeroPadding,
         iv: null,
  *  }
