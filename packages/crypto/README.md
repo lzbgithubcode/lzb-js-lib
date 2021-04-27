@@ -33,29 +33,29 @@
 
 
       // 支持Object 
-           const souceData = {
-                name: "lz",
-                age: 15,
-                dog:{
-                    name:"小黑",
-                    type: "藏獒",
-                },
-                cats:[
-                    {
-                        name: "坤坤",
-                    }
-                ]
-            };
-            console.log('数据源-----',souceData);
-            const jm = lzbCrypto.AESEnc(souceData);
-            console.log('加密-----',jm);
-            const jiemi = lzbCrypto.DESEnc(jm);
-            console.log('解密-----',jiemi);
-     
-           // 结果
-          数据源----- {name: "lz", age: 15, dog: {…}, cats: Array(1)}
-          加密----- VVpCU3RnTWljVzJiSytsMEl6dzVRZEVlVDU2RnB6cFJzeVBsbmhFZXdncEhzNWJRdW9TbXNFNCtXcFMveDk4cWFyWVY1WnFwWnhSRENuL2MxSFhwcTZqRTM5K3liUGo5dkhrWGRvRlR1bVZZL0oySVpmTUhBSHU4TmFpSjZENks=
-          解密----- {name: "lz", age: 15, dog: {…}, cats: Array(1)}
+       const souceData = {
+            name: "lz",
+            age: 15,
+            dog:{
+                name:"小黑",
+                type: "藏獒",
+            },
+            cats:[
+                {
+                    name: "坤坤",
+                }
+            ]
+        };
+        console.log('数据源-----',souceData);
+        const jm = lzbCrypto.AESEnc(souceData);
+        console.log('加密-----',jm);
+        const jiemi = lzbCrypto.DESEnc(jm);
+        console.log('解密-----',jiemi);
+ 
+       // 结果
+      数据源----- {name: "lz", age: 15, dog: {…}, cats: Array(1)}
+      加密----- VVpCU3RnTWljVzJiSytsMEl6dzVRZEVlVDU2RnB6cFJzeVBsbmhFZXdncEhzNWJRdW9TbXNFNCtXcFMveDk4cWFyWVY1WnFwWnhSRENuL2MxSFhwcTZqRTM5K3liUGo5dkhrWGRvRlR1bVZZL0oySVpmTUhBSHU4TmFpSjZENks=
+      解密----- {name: "lz", age: 15, dog: {…}, cats: Array(1)}
 
 ```
 
