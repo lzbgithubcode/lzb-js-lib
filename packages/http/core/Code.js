@@ -33,7 +33,7 @@ module.exports = {
         /**
          * 请求超时
          */
-        ERROR_REQUERST_TIME_OUT: 408,
+        ERROR_REQUEST_TIME_OUT: 408,
         /**
          *  服务端错误
          */

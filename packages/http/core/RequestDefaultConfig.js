@@ -1,7 +1,7 @@
 /**
  *  请求公有配置
  */
-const requestDefaultConfig = {
+const RequestDefaultConfig = {
     /**
      * 基础URL
      */
@@ -59,8 +59,9 @@ const requestDefaultConfig = {
      * 提供的token值
      * requireToken= true 有效
      * 需要初始化项目提供 - 优先取值
+     * 返回值 就是token值
      */
-    tokenValue: null,
+    tokenValueFunc: null,
 
     /**
      * 是否支持cookie存取token
@@ -77,17 +78,15 @@ const requestDefaultConfig = {
     supportLocalStorageToken: true,
 
     /**
-     * 存储token的key
+     * 存储token的key - 本地需要保存
      */
     tokenPersistentKey: "http-token-key",
     /**
      * 验证token 回调 - 使用者实现，不实现也标识token不验证  函数获取参数token
-     * 返回： 0 未过期, 1 即将过期, 2 已过期
+     * 返回值： 0 未过期, 1 即将过期, 2 已过期
      */
-    validTokenFunc: function (token) {
-        return 0
-    }
+    validTokenFunc:  null
 
 };
 
-module.exports =  requestDefaultConfig;
+module.exports =  RequestDefaultConfig;

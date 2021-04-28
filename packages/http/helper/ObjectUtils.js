@@ -21,5 +21,16 @@ module.exports = {
             }
         }
         return result;
-     }
+     },
+    /**
+     * 获取对象所有的keys
+     */
+    getAllKeys(obj){
+        if(!obj) return [];
+        let key, result = [];
+        for (key in obj){
+            result.push(key);
+        }
+        return result;
+    },
 };

@@ -1,8 +1,8 @@
 {
-  "name": "@lzblib/http",
-  "version": "1.0.0",
+  "name": "lzb-http",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "http.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

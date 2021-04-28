@@ -1,4 +1,4 @@
-const request = require("./core/request.js");
+const request = require("./core/Request.js");
 const http = {};
 
 // public api
