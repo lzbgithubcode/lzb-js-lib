@@ -1,7 +1,7 @@
 <template>
     <div class="video-player" :style="{width: width,height: height}">
         <video  :id="ele" class="video-js" ref="video">
-             <track v-for="(item, index) in trackList" :key="index"  :kind="item.kind" :label="item.label" :src="item.src">
+              <source v-for="(item, index) in sources" :key="index" :src="item.url" :type="item.type">
         </video>
     </div>
 
@@ -9,6 +9,7 @@
 
 <script>
     import _videojs from "video.js";
+    import "video.js/dist/video-js.css";
     import defaults from "./defaults.js";
     const videojs = window.videojs || _videojs;
    export default {
@@ -21,31 +22,35 @@
            },
            width: {
                type: String,
-               required: true,
-               default: '320px',
+               required: false,
+               default: "864px",
            },
            height: {
                type: String,
-               required: true,
-               default: '180px',
+               required: false,
+               default: "486px",
            },
            playsinline:{
               type: Boolean,
-              default: false,
+              required: false,
+              default: true,
            },
-           // 数据源
-           trackList:{
+           // 数据源 { url , type}
+           sources:{
                type:Array,
+               required: false,
                default:  () => [],
            },
+
            // 播放器配置
            globalOptions: {
                type: Object,
-               required: true
+               required: false
            },
            // 播放器事件
            globalEvents: {
                type: Array,
+               required: false,
                default: () => []
            },
 
@@ -132,7 +137,7 @@
                          if(typeof eventName === "string" && onEvents[eventName] === undefined){
                              ((event)=>{
                                  onEvents[event] = null;
-                                 that.on(event, ()=>{
+                                 this.on(event, ()=>{
                                      emitPlayerState(event);
                                  });
                              })(eventName);
@@ -141,11 +146,11 @@
                      }
 
                    // watch timeupdate
-                   that.on('timeupdate', function() {
-                       emitPlayerState('timeupdate', that.currentTime())
+                   this.on('timeupdate', function() {
+                       emitPlayerState('timeupdate', this.currentTime())
                    })
                    // player readied
-                   that.$emit('ready', that);
+                   that.$emit('ready', this);
                });
            },
 
@@ -170,16 +175,20 @@
             * */
            rePlay(url){
                if(this.player && url){
-                   this.player.src = url;
-                   //重新加载播放器
-                   this.player.load();
+                   this.play(url);
                }
            },
            /**
-            * 播放
+            * 播放 - 加载数据
             */
            play(url){
-               this.player && this.player.play && this.player.play();
+               this.videoOptions.sources = [{
+                   url,
+                   type: 'video/mp4'
+               }];
+               this.player.src({type: 'video/mp4', src: url});
+               //重新加载播放器
+               this.player.load();
            },
            /**
             * 暂停
@@ -213,6 +222,7 @@
 </script>
 
 <style lang="scss">
+@import "./customPlayerTheme.scss";
 .video-player .video-js{
     width: 100%;
     height: 100%;
