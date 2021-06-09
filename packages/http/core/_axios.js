@@ -69,34 +69,33 @@ axios.interceptors.response.use( async res => {
 
     // 2. 请求不用拦截
     if(res.config.requestSkip){
-        debugger
         return  res;
     }
     // 3.不需要token 验证
-    if(!res.config.requireToken){
-        return  res;
-    }
-    // 4.token验证
-    const tokenValue = res.config.headers[res.config.tokenKey];
-    if(!tokenValue){
-        const expired = res.config.validTokenFunc(tokenValue);
-        // 0未过期, 1即将过期, 2已过期
-        if(expired == 1){ // 刷新token
-            const onceOptions = ObjectUtils.extend(res.config);
-            onceOptions.responseSkip = true;
-            onceOptions.requestSkip = true;
-            onceOptions.url = res.config.tokenRefreshUrl;
-            const postRes = await _axios.$axios.post( onceOptions.url);
-            if(postRes && postRes.data && postRes.data.success){
-                const tokenData = postRes.data.data;
-                // 保存token
-                if(tokenData){
-                    res.config.supportCookieToken && Cookies.set(res.config.tokenKey, tokenData);
-                    res.config.supportLocalStorageToken && window.localStorage && window.localStorage.setItem(res.config.tokenKey, tokenData);
+    if(res.config.requireToken){
+        // 4.token验证
+        const tokenValue = res.config.headers[res.config.tokenKey];
+        if(!tokenValue){
+            const expired = res.config.validTokenFunc(tokenValue);
+            // 0未过期, 1即将过期, 2已过期
+            if(expired == 1){ // 刷新token
+                const onceOptions = ObjectUtils.extend(res.config);
+                onceOptions.responseSkip = true;
+                onceOptions.requestSkip = true;
+                onceOptions.url = res.config.tokenRefreshUrl;
+                const postRes = await _axios.$axios.post( onceOptions.url);
+                if(postRes && postRes.data && postRes.data.success){
+                    const tokenData = postRes.data.data;
+                    // 保存token
+                    if(tokenData){
+                        res.config.supportCookieToken && Cookies.set(res.config.tokenKey, tokenData);
+                        res.config.supportLocalStorageToken && window.localStorage && window.localStorage.setItem(res.config.tokenKey, tokenData);
+                    }
                 }
             }
         }
     }
+
 
     // 3.返回状态码, 这里取http
     if(res.status == Code.UNIVERSAL.NORMAL_STATUS){
